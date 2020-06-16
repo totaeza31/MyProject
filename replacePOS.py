@@ -2,7 +2,7 @@ import csv
 def openfile(form,num):
     result= []
 
-    with open(f'./data/{form}.csv', encoding="utf8") as csvfile: 
+    with open(f'./dataReplacePOS/{form}.csv', encoding="utf8") as csvfile: 
      opencsvform1 = csv.reader(csvfile)
      for row in opencsvform1:
        prints= row[num]
@@ -201,7 +201,7 @@ def SaveToCsvfile():
        for num in nums :
 
          infomation = openfile(form,num)
-         with open(f'./result/{form}/num_{num}.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
+         with open(f'./resultReplacePOS/{form}/num_{num}.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
           fieldnames = [num]
           writer = csv.DictWriter(savecsvfile,fieldnames=fieldnames)
           writer.writeheader()
