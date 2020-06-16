@@ -33,7 +33,7 @@ def savecsv():
    
     for opens in OpenCSVfile:
      information= opencsv(opens)
-     with open(f'./Quiz2/ResultQuiz2/{opens}.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
+     with open(f'./ResultQuiz2/{opens}.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
 
       fieldnames = [opens]
       writer = csv.DictWriter(savecsvfile,fieldnames=fieldnames)

@@ -24,7 +24,7 @@ def savecsv():
    
     for opens in OpenCSVfile:
       information= Opencsv(opens)
-      with open(f'./Quiz3/{opens}_clean_translated.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
+      with open(f'./ResultQuiz3/{opens}_clean_translated.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
  
        fieldnames = [opens]
        writer = csv.DictWriter(savecsvfile,fieldnames=fieldnames)
