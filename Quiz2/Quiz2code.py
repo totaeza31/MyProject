@@ -10,7 +10,6 @@ def Opencsv(opens):
         reader = csv.reader(csvfile)
         next(reader, None)
         values = []
-
         print("Procesing in pos_tag > ",opens)
 
         for row in reader:
@@ -33,6 +32,7 @@ def Opencsv(opens):
             clean7 = clean6.replace("  ", "")
             clean8 = clean7.replace(", (',.]', 'ADV'),","")
             values.append(clean8)
+        
         return values
 
 
