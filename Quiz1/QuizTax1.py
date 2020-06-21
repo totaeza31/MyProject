@@ -38,7 +38,7 @@ def Savecsv(filds):
         print("Success in ", filds)
 
 
-def SaveCSVall(name):
+def SaveCSVall():
 
     dict = {'patong_google': Opencsv('patong_google'), 'patong_trip': Opencsv('patong_trip'),
             'promthep_google': Opencsv('promthep_google'), 'promthep_trip': Opencsv('promthep_trip'),
