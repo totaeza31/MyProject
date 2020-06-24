@@ -197,12 +197,10 @@ def openfile(form,num):
        result.append(anouthers)
      return result
      
-def SaveToCsvfile():
+def SaveToCsvfile(form):
 
     nums=[0,1,2,3,4,5]
-    forms=["form1","form2","form3","form4"]
-    for form in forms:
-       for num in nums :
+    for num in nums :
 
          infomation = openfile(form,num)
          with open(f'./resultReplacePOS/{form}_row_{num}.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
@@ -222,16 +220,18 @@ def SaveCSVall(form):
             }
 
     df = pd.DataFrame(dict)
-    df.to_csv(f'./ResultQuiz1/{form}.csv', index=False)
+    df.to_csv(f'./resultReplacePOS/{form}.csv', index=False)
     
     print("Success to save all > ",form)
 
 def main():
 
    filecsvs=["form1","form2","form3","form4"]
-   SaveToCsvfile()
+
    
    for form in filecsvs:
+
+       SaveToCsvfile(form)
        SaveCSVall(form)
 
 main()
