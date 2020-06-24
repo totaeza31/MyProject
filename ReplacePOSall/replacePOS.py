@@ -203,7 +203,7 @@ def SaveToCsvfile(form):
     for num in nums :
 
          infomation = openfile(form,num)
-         with open(f'./resultReplacePOS/{form}_row_{num}.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
+         with open(f'./resultReplacePOS/{form}/{form}_row_{num}.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
           fieldnames = [num]
           writer = csv.DictWriter(savecsvfile,fieldnames=fieldnames)
           writer.writeheader()
@@ -220,7 +220,7 @@ def SaveCSVall(form):
             }
 
     df = pd.DataFrame(dict)
-    df.to_csv(f'./resultReplacePOS/{form}.csv', index=False)
+    df.to_csv(f'./resultReplacePOS/{form}/{form}.csv', index=False)
     
     print("Success to save all > ",form)
 
