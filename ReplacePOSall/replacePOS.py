@@ -1,9 +1,13 @@
 import csv
+import pandas as pd
+
 def openfile(form,num):
     result= []
 
-    with open(f'./ReplacePOSall/dataReplacePOS/{form}.csv', encoding="utf8") as csvfile: 
+    with open(f'./dataReplacePOS/{form}.csv', encoding="utf8") as csvfile: 
      opencsvform1 = csv.reader(csvfile)
+     next(opencsvform1, None)
+
      for row in opencsvform1:
        prints= row[num]
        rather=prints.replace("('ค่อนข้าง', 'ADJ')","('ค่อนข้าง', 'AUX')")
@@ -201,7 +205,7 @@ def SaveToCsvfile():
        for num in nums :
 
          infomation = openfile(form,num)
-         with open(f'./ReplacePOSall/resultReplacePOS/{form}/num_{num}.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
+         with open(f'./resultReplacePOS/{form}_row_{num}.csv', mode='w',encoding="utf8",newline='') as savecsvfile:
           fieldnames = [num]
           writer = csv.DictWriter(savecsvfile,fieldnames=fieldnames)
           writer.writeheader()
@@ -210,9 +214,24 @@ def SaveToCsvfile():
           print("success to save csv > ",form," in > ",num+1 )
   
 
+def SaveCSVall(form):
+
+    dict = {'patong_google': openfile(form,0), 'patong_trip': openfile(form,1),
+            'promthep_google': openfile(form,2), 'promthep_trip': openfile(form,3),
+            'wat_google': openfile(form,4), 'wat_trip': openfile(form,5),
+            }
+
+    df = pd.DataFrame(dict)
+    df.to_csv(f'./ResultQuiz1/{form}.csv', index=False)
+    
+    print("Success to save all > ",form)
+
 def main():
- 
+
+   filecsvs=["form1","form2","form3","form4"]
    SaveToCsvfile()
-  
+   
+   for form in filecsvs:
+       SaveCSVall(form)
 
 main()
