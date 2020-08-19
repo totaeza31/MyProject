@@ -1,34 +1,56 @@
+import tltk
+import csv
+import deepcut
+import pandas as pd
+import time
+import tltk
+from pythainlp.tag import pos_tag
+
+
 def DeepcutandTLTK():
 
         valuesDeepcutandTLTK = []   
-        text = "ทดสอบการตัดคำ"
+        text = "ทดสอบตัวตัดคำ ssนะจ้ะdsdsd/*-"
 # cut word 
-        list_word = deepcut.tokenize(text)
-# POS 
-        i = tltk.nlp.pos_tag(list_word)
-        changeListToString = str(i)
-# clean
-        clean3 = changeListToString.replace("(',', 'PUNCT'),", "") \
-                      .replace(", ('<s/>', 'PUNCT')", "")\
-                      .replace("('[', 'SYM'),", "")\
-                      .replace(", (']', 'SYM')", "")\
-                      .replace("  ", "")\
-                      .replace(", (',.]', 'ADV'),","")
-       
-        valuesDeepcutandTLTK.append(clean3)      
+        cleans1 = str(text)
+        cleans = cleans1.translate({ord(c): "" for c in "\"'!@#$ %^&*,[](){};:./<>?|`~-=_+\\"})
+        list_word = deepcut.tokenize(cleans)
+# POS   Replace ใหม่อีกครั้งเพราะ เอาคำที่ตัดไปใช้ต่อใน tltk (tltk ต้องการคำปกติ)
+        strlist_word = str(list_word)
+        replaces =strlist_word.replace("[","") \
+                              .replace("'","") \
+                              .replace("]","") \
+                              .replace(" ","")
+                        
+        pos = tltk.nlp.pos_tag(replaces)
+        
+        
+         
+        strpos = str(pos)
+        cleanPOS = strpos.replace("(',', 'PUNCT'), ", "") \
+                         .replace("[[","[") \
+                         .replace("]]","]")
+        valuesDeepcutandTLTK.append(cleanPOS)      
         return valuesDeepcutandTLTK
 
 def DeepcutandPythai():
 
         valuesDeepcutandPythai = []   
-        text= "ทดสอบการตัดคำ"
-        list_word = deepcut.tokenize(text)
-        senten = pos_tag(list_word, corpus='orchid_ud')
-        tests = [senten]
-        test = str(tests)
+        text = "ทดสอบตัวตัดคำ ssนะจ้ะdsdsd/*-"
+        cleans1 = str(text)
+        cleans = cleans1.translate({ord(c): "" for c in "\"'!@#$ %^&*,[](){};:./<>?|`~-=_+\\"})
 
-        clean = test.replace(", (' ', 'PUNCT'), ", "],[")
-        clean2 = clean.replace(" ", "")
-        valuesDeepcutandPythai.append(clean2)
-     
-        return valuesDeepcutandTLTK
+        list_word = deepcut.tokenize(cleans)
+        senten = pos_tag(list_word, corpus='orchid_ud')
+   
+        valuesDeepcutandPythai.append(senten)
+        return valuesDeepcutandPythai
+
+
+# deepcut+tltk ["[('ทดสอบ', 'NOUN'), ('ตัว', 'NOUN'), ('ตัด', 'VERB'), ('คำ', 'NOUN'), (',ss,', 'PART'), ('นะ', 'NOUN'), ('จ้ะ', 'NOUN'), (',dsdsd', 'NOUN'), ('<s/>', 'PUNCT')]"]
+# ["("] เเก้ไม่หาย
+
+# deepcut+pythai [[('ทดสอบ', 'VERB'), ('ตัว', 'NOUN'), ('ตัด', 'VERB'), ('คำ', 'NOUN'), ('ss', 'NOUN'), ('นะ', 'NOUN'), ('จ้ะ', 'NOUN'), ('dsdsd', 'NOUN')]]
+
+DeepcutandTLTK()
+DeepcutandPythai()
