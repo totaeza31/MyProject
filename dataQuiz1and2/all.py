@@ -15,7 +15,7 @@ def DeepcutandTLTK():
         cleans1 = str(text)
         cleans = cleans1.translate({ord(c): "" for c in "\"'!@#$ %^&*,[](){};:./<>?|`~-=_+\\"})
         list_word = deepcut.tokenize(cleans)
-# POS   Replace ใหม่อีกครั้งเพราะ เอาคำที่ตัดไปใช้ต่อใน tltk (tltk ต้องการคำปกติ)
+
         strlist_word = str(list_word)
         replaces =strlist_word.replace("[","") \
                               .replace("'","") \
@@ -25,7 +25,7 @@ def DeepcutandTLTK():
         pos = tltk.nlp.pos_tag(replaces)
         
         
-         
+# POS   Replace ใหม่อีกครั้งเพราะ เอาคำที่ตัดไปใช้ต่อใน tltk (tltk เอาคำที่ไม่ตัด[ข้อความปกติ]มาตัดด้วยก็เลยให้คั่นด้วย , จะได้ตัดของdeepcut )   
         strpos = str(pos)
         cleanPOS = strpos.replace("(',', 'PUNCT'), ", "") \
                          .replace("[[","[") \
