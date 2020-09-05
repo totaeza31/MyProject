@@ -1,4 +1,4 @@
- 
+import json
 
 def keepfile(looplamda):
   ls = ['Hello from AskPython', 'แออัดมาก', 'Hello boy!', 'ไม่ค่อยแออัดมาก']
@@ -15,11 +15,18 @@ def datass():
     print(keepfilea) 
 
 def main():
+     data = {}
      counts =0 
-     lambdas = ['แออัด','Hello']
+     lambdas = ['boy','Hello']
+     fileds = 'texts'
      for looplamda in lambdas: 
-         aa=keepfile(looplamda)
-         counts +=1
-         print("count",counts,"text",looplamda,"senten",aa)
 
+         sentens = keepfile(looplamda)
+         counts +=1
+         print("count",counts,"text",looplamda,"senten",sentens)
+         data[looplamda] = []
+         data[looplamda].append({
+             fileds: sentens })
+     with open('./testCode/json/datatesid.json', 'w') as outfile:
+        json.dump(data, outfile)
 main()
