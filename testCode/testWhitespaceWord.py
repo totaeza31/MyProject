@@ -4,7 +4,6 @@ import pandas as pd
 # function to get unique values 
 def unique(splits): 
     x = np.array(splits) 
-    print(np.unique(x)) 
     return (np.unique(x)) 
       
 
@@ -35,8 +34,7 @@ def main():
                                           .replace('.','')\
                                           .replace(',',' ')                            
     splits= replacestrinformation.split()
-    print(type(splits))
-    print(splits)
+    
     cutwordUnqui = unique(splits) 
     return cutwordUnqui
 
