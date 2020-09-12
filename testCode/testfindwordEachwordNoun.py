@@ -76,7 +76,7 @@ balls = ['red', 'red', 'blue', 'blue', 'blue', 'black']
 
 
 def readcsv():
-    with open(f'./testCode/csv/testset_deepcutpythai.csv', encoding="utf8") as csvfile:
+    with open(f'./testCode/csv/testset_deepcutpythai1.csv', encoding="utf8") as csvfile:
      readers = csv.reader(csvfile)
      data = []
      count=0
@@ -183,6 +183,7 @@ def getDuplicatesWithCount(listOfElems):
 
 
 listOfElems = keepfile('NOUN')
+print(type(listOfElems))
 # Get a dictionary containing duplicate elements in list and their frequency count
 dictOfElems = getDuplicatesWithCount(listOfElems)
 keys=[]     
@@ -197,4 +198,4 @@ def savejson():
     df = pd.DataFrame(dict)
     df.to_csv(f'./testCode/csv/testEachword.csv', index=False)
     print("compleate csv")
-savejson()
+# savejson()
