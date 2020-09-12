@@ -36,12 +36,15 @@ def main():
     splits= replacestrinformation.split()
     
     cutwordUnqui = unique(splits) 
+
     return cutwordUnqui
 
+
+print(type(main()))
 def savejson():
     dict = {'words':main()}
     df = pd.DataFrame(dict)
     df.to_csv(f'./testCode/csv/testUniqui.csv', index=False)
 
-savejson()
+
 
