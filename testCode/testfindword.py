@@ -34,30 +34,34 @@ def deepcuts():
 
 def keepfile(looplamda):
   
-  ls = readcsv('datafromwithspace1')
-  total = ''
+  ls = readcsv('datafromwithspace')
+  # total = []
   for y in ls:
    filter_object = filter(lambda a: looplamda in a, ls)
    a= list(filter_object)
-   total=(str(a))
-  return total
+  #  total=(str(a))\
+  return a
 
 
 def main():
      data = {}
      counts =0 
-     lambdas = readcsv('UniquewordDeepcutWordTestset1')
-     fileds = 'texts'
+     lambdas = readcsv('UniquewordDeepcutWordTestset')
+    #  fileds = 'texts'
      for looplamda in lambdas: 
+      sentens = keepfile(looplamda)
+      # ranges_sentens = len(sentens)
+      data[looplamda] = []
+      counts+=1
+      print(counts)
+      # สร้าง json แบบ {{name:}{name:}} ใช้ ranges
+      # for ranges in range(ranges_sentens):
+      data[looplamda].append({
+          # looplamda: sentens[ranges] })
+          looplamda: sentens })
+     
 
-         sentens = keepfile(looplamda)
-         counts +=1
-         data[looplamda] = []
-         data[looplamda].append({
-             fileds: sentens })
-         print(counts)
-
-     with open('./testCode/json/UniquewordDeepcutWordTestset111.json', 'w', encoding='utf8') as outfile:
+     with open('./testCode/json/UniquewordDeepcutWordTestsetNomalReal.json', 'w', encoding='utf8') as outfile:
         json.dump(data, outfile, ensure_ascii=False)
 
 def savecsv(names):

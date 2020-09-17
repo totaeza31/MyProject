@@ -133,8 +133,9 @@ def main():
     #  fileds = ['text','test']
      fileds = ['text','value']
     #   id loolmada = ดี
-    
+     
      for looplamda in lambdas: 
+       
         #  sentens = keepfileNoun(looplamda,)
          text = findText1(looplamda)
          value = findcount1(looplamda)
@@ -148,7 +149,31 @@ def main():
          print(counts)
      with open('./testCode/json/testfindword1.json', 'w', encoding='utf8') as outfile:
         json.dump(data, outfile, ensure_ascii=False)
-main()
+
+def maintest():
+     data = {}
+     counts =0 
+     lambdas = readcsv('UniquewordDeepcutWordTestset1')
+    #  fileds = ['text','test']
+     fileds = ['text','value']
+    #   id loolmada = ดี
+     
+     for looplamda in lambdas: 
+       for looplamdas in lambdas: 
+        #  sentens = keepfileNoun(looplamda,)
+         text = findText1(looplamda)
+         counts +=1
+         data[looplamda] = []
+        #  for filed in fileds:
+         data[looplamda].append({
+             fileds[0]: text,
+             fileds[1]: value })
+         
+         print(counts)
+     with open('./testCode/json/testfindword1.json', 'w', encoding='utf8') as outfile:
+        json.dump(data, outfile, ensure_ascii=False)
+maintest()
+
 
 
 

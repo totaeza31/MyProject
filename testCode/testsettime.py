@@ -1,16 +1,18 @@
 import schedule
 import time
 import datetime
+from progress.bar import IncrementalBar
 
 def job():
-   for i in range(11):
+   datas = range(100000)
+   max=len(datas)
+   bar = IncrementalBar(f'Progress',max=max,
+                    suffix='%(percent)d%% %(elapsed_td)s')
+   for i in datas :
     for j in range(i):
-        print (i, end=' ')
-    print()
+        # print (i, end=' ')
+     bar.next()
+   bar.finish()
 
-schedule.every().day.at("20:47").do(job)
+job()
 
-while True:
-    schedule.run_pending()
-    print(datetime.datetime.now())
-    time.sleep(1)
