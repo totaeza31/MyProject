@@ -3,6 +3,8 @@ import csv
 import deepcut
 import pandas as pd
 import numpy as np 
+from progress.bar import IncrementalBar
+
 
 def readcsv(filename):
 
@@ -12,23 +14,24 @@ def readcsv(filename):
     next(readers, None)
     for row in readers:
      words=row[0]
-     lambdas.append(words)
+     replaceWord = words.replace("-NOUN","").replace("-VERB","").replace("-ADJ","").replace("-ADV","")
+     lambdas.append(replaceWord)
     
   return lambdas
 
-def deepcuts():
- with open('./testCode/csv/datafromwithspace.csv', encoding="utf8") as csvfile:
-    readers = csv.reader(csvfile)
-    data_cut=[]
-    count =0 
-    next(readers, None)
+# def deepcuts():
+#  with open('./testCode/csv/datafromwithspace.csv', encoding="utf8") as csvfile:
+#     readers = csv.reader(csvfile)
+#     data_cut=[]
+#     count =0 
+#     next(readers, None)
 
-    for row in readers:
-     words=row[0]
-    #  data = deepcut.tokenize(words)
-    #  data_cut.append(data)
-     data_cut.append(words)
- return data_cut
+#     for row in readers:
+#      words=row[0]
+#     #  data = deepcut.tokenize(words)
+#     #  data_cut.append(data)
+#      data_cut.append(words)
+#  return data_cut
 
 
 
@@ -44,43 +47,46 @@ def keepfile(looplamda):
 
 
 def main():
-     data = {}
-     counts =0 
-     lambdas = readcsv('UniquewordDeepcutWordTestset')
+    data = {}
+    counts =0 
+    namecsv = ['NOUN','VERB','ADV','ADJ']
+    name='testEachword'
+    for readname in namecsv:
+     lambdas = readcsv(name+readname)
+     max = len(lambdas)
+     bar = IncrementalBar(f'Word segment file {readname}',max = max ,
+           suffix='%(percent)d%% %(elapsed_td)s')
     #  fileds = 'texts'
+     data[readname] = []
      for looplamda in lambdas: 
       sentens = keepfile(looplamda)
+      bar.next()
+      if sentens != []:
+      
+        #  for filed in fileds:
+       data[readname].append({
+             looplamda: sentens,
+             })
       # ranges_sentens = len(sentens)
-      data[looplamda] = []
-      counts+=1
-      print(counts)
+      #  data.append({looplamda:sentens})
+       counts+=1
+      else:
+       counts=counts
+     bar.finish()
+    #  print(counts)
       # สร้าง json แบบ {{name:}{name:}} ใช้ ranges
       # for ranges in range(ranges_sentens):
-      data[looplamda].append({
+      # data[looplamda].append({
           # looplamda: sentens[ranges] })
-          looplamda: sentens })
-     
+          # looplamda: sentens })
+    
+    with open(f'./testCode/json/UniquewordDeepcutWordADJADVNOUNVERB.json', 'w', encoding='utf8') as outfile:
+        json.dump(data, outfile, ensure_ascii=False )
 
-     with open('./testCode/json/UniquewordDeepcutWordTestsetNomalReal.json', 'w', encoding='utf8') as outfile:
-        json.dump(data, outfile, ensure_ascii=False)
-
-def savecsv(names):
-    splits = test()
-    dict = {'words':unique(splits)}
-    df = pd.DataFrame(dict)
-    df.to_csv(f'./testCode/csv/{names}.csv', index=False)
 
 def unique(splits): 
     x = np.array(splits) 
     return (np.unique(x)) 
-
-def test():
-  data = deepcuts()
-  strs = str(data)
-  strdata = strs.replace("[","").replace("]","").replace(",","").replace(" ","").replace("'","")
-  datacut = deepcut.tokenize(strdata)
-  cutwordUnqui = unique(datacut) 
-  return cutwordUnqui
 
 
 main()

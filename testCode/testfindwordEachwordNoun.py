@@ -4,6 +4,7 @@ import deepcut
 import pandas as pd
 import numpy as np 
 from collections import Counter
+from progress.bar import IncrementalBar
 
 def readcsv(filename):
 
@@ -76,10 +77,11 @@ balls = ['red', 'red', 'blue', 'blue', 'blue', 'black']
 
 
 def readcsv():
-    with open(f'./testCode/csv/testset_deepcutpythai1.csv', encoding="utf8") as csvfile:
+    with open(f'./testCode/csv/testset_deepcutpythai.csv', encoding="utf8") as csvfile:
      readers = csv.reader(csvfile)
      data = []
      count=0
+     
      next(readers, None)
 
      for row in readers:
@@ -123,36 +125,13 @@ def keepfile(looplamda):
    filter_object = filter(lambda a: looplamda in a, ls)
    a= list(filter_object)
    count+=1
-   print("count of finding NOUN >>",count)
+   print("count of finding >>",count)
   #  total=(str(a))
 
   # replaceNoun = total.replace("-NOUN","")
   # print(type(a))
   # print(a)
   return a
-
-
-def main():
-     data = {}
-     counts =0 
-     lambdas = ['NOUN']
-     fileds = 'texts'
-     for looplamda in lambdas: 
-
-         sentens = keepfile(looplamda)
-
-         counts +=1
-         data[looplamda] = []
-         data[looplamda].append({
-             fileds: sentens })
-     return data
-
-
-     
-     
-     with open('./testCode/json/testEachword.json', 'w', encoding='utf8') as outfile:
-        json.dump(data, outfile, ensure_ascii=False)
-
 
 
 # datas = keepfile('NOUN')
@@ -182,8 +161,8 @@ def getDuplicatesWithCount(listOfElems):
     return dictOfElems
 
 
-listOfElems = keepfile('NOUN')
-print(type(listOfElems))
+listOfElems = keepfile('VERB')
+
 # Get a dictionary containing duplicate elements in list and their frequency count
 dictOfElems = getDuplicatesWithCount(listOfElems)
 keys=[]     
@@ -192,10 +171,9 @@ for key, value in dictOfElems.items():
   keys.append(key)
   count.append(value)
 
-
 def savejson():
     dict = {'words':keys,'counts':count}
     df = pd.DataFrame(dict)
-    df.to_csv(f'./testCode/csv/testEachword.csv', index=False)
+    df.to_csv(f'./testCode/csv/testEachwordVERB.csv', index=False)
     print("compleate csv")
-# savejson()
+savejson()
