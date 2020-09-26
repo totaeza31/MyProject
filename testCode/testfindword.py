@@ -37,7 +37,7 @@ def readcsv(filename):
 
 def keepfile(looplamda):
   
-  ls = readcsv('datafromwithspace')
+  ls = readcsv('datafromwithspace1')
   # total = []
   for y in ls:
    filter_object = filter(lambda a: looplamda in a, ls)
@@ -46,10 +46,12 @@ def keepfile(looplamda):
   return a
 
 
+
+
 def main():
     data = {}
     counts =0 
-    namecsv = ['NOUN','VERB','ADV','ADJ']
+    namecsv = ['NOUN']
     name='testEachword'
     for readname in namecsv:
      lambdas = readcsv(name+readname)
@@ -65,7 +67,7 @@ def main():
       
         #  for filed in fileds:
        data[readname].append({
-             looplamda: sentens,
+             looplamda: sentens
              })
       # ranges_sentens = len(sentens)
       #  data.append({looplamda:sentens})
@@ -79,14 +81,26 @@ def main():
       # data[looplamda].append({
           # looplamda: sentens[ranges] })
           # looplamda: sentens })
-    
-    with open(f'./testCode/json/UniquewordDeepcutWordADJADVNOUNVERB.json', 'w', encoding='utf8') as outfile:
-        json.dump(data, outfile, ensure_ascii=False )
+    return data
+    # with open(f'./testCode/json/UniquewordDeepcutWordADJADVNOUNVERB1.json', 'w', encoding='utf8') as outfile:
+    #     json.dump(data, outfile, ensure_ascii=False )
 
 
 def unique(splits): 
     x = np.array(splits) 
     return (np.unique(x)) 
 
+def save():
+ test = main()
+ print(test)
+ df = pd.DataFrame(test)
+ df.to_csv(f'/testCode/json/UniquewordDeepcutWordADJADVNOUNVERB1.csv', index=False)
 
-main()
+# def savejson():
+#   csv_file = pd.DataFrame(pd.read_csv("./testCode/json/UniquewordDeepcutWordADJADVNOUNVERB1.csv"
+#   , sep = ",", header = 0, index_col = False))
+#   csv_file.to_json("./testCode/json/UniquewordDeepcutWordADJADVNOUNVERB1.json", orient = "records", date_format = "epoch"
+#   , double_precision = 10, force_ascii = True
+#   , date_unit = "ms", default_handler = None) 
+# savejson()
+save()

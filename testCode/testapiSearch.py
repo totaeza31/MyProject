@@ -7,7 +7,7 @@ api = Api(app)
 
 class Helloword(Resource):
     def get(self,name,):
-        url = './testCode/json/WordClould.json'     
+        url = './testCode/json/toptensentens.json'     
         with open(url,encoding='utf-8') as f: 
           names = json.load(f)
           # obj = names[name]
@@ -18,7 +18,7 @@ api.add_resource(Helloword,"/helloword/<string:name>")
 @app.route('/CorrectIDFRatingType1Patong')
 def CorrectIDFRatingType1Patong(): 
  
- url="./testCode/json/UniquewordDeepcutWordTestsetNomalReal1.json"
+ url="./testCode/json/toptensentens.json"
  with open(url, encoding="utf8") as f: 
   obj = json.load(f)
  return json.dumps(obj,ensure_ascii=False)
