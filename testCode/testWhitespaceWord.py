@@ -1,50 +1,59 @@
-import numpy as np 
+import numpy as np
 import csv
 import pandas as pd
-# function to get unique values 
-def unique(splits): 
-    x = np.array(splits) 
-    return (np.unique(x)) 
-      
 
-def readcsv():
-    with open(f'./testCode/csv/data.csv', encoding="utf8") as csvfile:
-     readers = csv.reader(csvfile)
-     data = []
-     count=0
-     next(readers, None)
-
-     for row in readers:
-        words=row[2]
-        text =words.split()
-        count+=1
-        data.append(text)
-    return data
-
-def main():
-    data=[]
-    newdata=[]
-    information = readcsv()
-    strinformation = str(information)
-    replacestrinformation = strinformation.replace("'",'')\
-                                          .replace('[','')\
-                                          .replace(']','')\
-                                          .replace(' ','')\
-                                          .replace('\"','')\
-                                          .replace('.','')\
-                                          .replace(',',' ')                            
-    splits= replacestrinformation.split()
-    
-    cutwordUnqui = unique(splits) 
-
-    return cutwordUnqui
+# function to get unique values
 
 
-print(type(main()))
-def savejson():
-    dict = {'words':main()}
-    df = pd.DataFrame(dict)
-    df.to_csv(f'./testCode/csv/testUniqui.csv', index=False)
+def unique(splits):
+    x = np.array(splits)
+    unqies = np.unique(x)
+    return unqies
 
 
+def readcsv(filds, posneglop):
+    with open(f'./testCode/csv/{filds}.csv', encoding="utf8") as csvfile:
+        readers = csv.reader(csvfile)
+        data = []
+        next(readers, None)
+        for row in readers:
+            words = row[2]
+            posneg = row[3]
+            if posneg == posneglop:
+                data.append(words)
+            #    name=words.split()
+        return data
 
+
+def Splitword(data):
+    strinformation = str(data)
+    replacestrinformation = strinformation.replace("'", '')\
+                                          .replace('[', '')\
+                                          .replace(']', '')\
+                                          .replace('\"', '')\
+                                          .replace('.', '')\
+                                          .replace(',', ' ')
+    splits = replacestrinformation.split()
+    return splits
+
+
+def main1():
+
+    dataname = ["POS", "NEG"]
+    for loop_dataname in dataname:
+        data = readcsv('data', loop_dataname)
+        splits = Splitword(data)
+
+        information = []
+
+        for countSplits in splits:
+            if len(countSplits) >= 15:
+                information.append(countSplits)
+        cutsenten = unique(information)
+
+        dict = {'words': cutsenten}
+        df = pd.DataFrame(dict)
+        df.to_csv(f'./testCode/csv/Whitespace{loop_dataname}.csv', index=False)
+
+
+main1()

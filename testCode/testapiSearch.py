@@ -7,7 +7,7 @@ api = Api(app)
 
 class Helloword(Resource):
     def get(self,name,):
-        url = './testCode/json/toptensentens.json'     
+        url = './testCode/json/Postgards.json'     
         with open(url,encoding='utf-8') as f: 
           names = json.load(f)
           # obj = names[name]
